@@ -209,9 +209,14 @@ int main(int argc, char *argv[])
 	infostream << "Using commanded world path ["
 	           << game_params.world_path << "]" << std::endl;
 
-	if (game_params.is_dedicated_server)
+	if (game_params.is_dedicated_server) {
 		return run_dedicated_server(game_params, cmd_args) ? 0 : 1;
-
+	} else {
+		if (cmd_args.exists("terminal"))
+            		errorstream << "Cmd arg --terminal passed, but "
+			    << "not running dedicated server. Ignoring." << std::endl;
+    	}
+	
 #ifndef SERVER
 	ClientLauncher launcher;
 	retval = launcher.run(game_params, cmd_args) ? 0 : 1;
