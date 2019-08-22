@@ -14,7 +14,7 @@
 
 using namespace irr;
 
-#if (IRRLICHT_VERSION_MAJOR > 1 || IRRLICHT_VERSION_MINOR != 8 || IRRLICHT_VERSION_REVISION < 5)
+#if ( (IRRLICHT_VERSION_MAJOR > 1 || IRRLICHT_VERSION_MINOR != 8 || IRRLICHT_VERSION_REVISION < 5) && (IRRLICHT_VERSION_MINOR != 9) )
 	namespace irr { namespace gui {
 
 		//! State of buttons used for drawing texture images.
@@ -61,7 +61,9 @@ using namespace irr;
 				};
 
 	}}
-
+    #define __OVERRIDE__ override
+#else
+    #define __OVERRIDE__
 #endif
 
 class GUIButton : public gui::IGUIButton
@@ -142,8 +144,8 @@ public:
 						   video::SColor color=video::SColor(255,255,255,255),
 						   bool loop=false, bool scale=false);
 
-	void setSprite(gui::EGUI_BUTTON_STATE state, s32 index, video::SColor color, bool loop) override {
-		setSprite(state, index, color, loop, false);
+	void setSprite(gui::EGUI_BUTTON_STATE state, s32 index, video::SColor color, bool loop) __OVERRIDE__ {
+		GUIButton::setSprite(state, index, color, loop, false);
 	}
 
 	//! Get the sprite-index for the given state or -1 when no sprite is set
