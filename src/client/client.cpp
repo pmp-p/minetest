@@ -302,6 +302,42 @@ void Client::connect(Address address, bool is_local_server)
 
 void Client::step(float dtime)
 {
+//---------------------------------------------- PMPP host app scripting test entry point
+
+    // idle more
+    sleep_ms(1);
+
+
+    struct timeval tv;
+    tv.tv_sec = 0;
+    tv.tv_usec = 100;
+
+    RenderingEngine::get_raw_device()->getCursorControl()->setVisible(true);
+
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+
+    int ret = select(1, &fds, NULL, NULL, &tv);
+    
+    if (ret == 1) {
+        std::wstring message;
+        getline(std::wcin, message);
+
+        if (std::wcin.eof()) {
+          std::wcerr << "eof." << std::endl;
+
+        } else {
+            std::wcerr << "stdin: " << message << std::endl;
+            sendChatMessage(message);
+            return;
+        }
+    }
+
+
+
+//---------------------------------------------- PMPP host app scripting test entry point
+
 	// Limit a bit
 	if (dtime > 2.0)
 		dtime = 2.0;
