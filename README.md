@@ -1,8 +1,10 @@
 ### general:
   - parameter --go leave the button [exit to menu] in interface though it leads to exit to os instead
-  - mouse grabbing not released  when switch app under x11 and lose focus
     
-  - client side lua api is either confused or non working.
+  - client side lua api is either confused or non working => need documentation.
+
+  - mouse grabbing not released  when switch app under x11 and lose focus
+ 
 most likely problem is here https://github.com/minetest/minetest/blob/master/src/client/renderingengine.cpp#L325
 
 ### port specific:
